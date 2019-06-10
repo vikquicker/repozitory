@@ -27,6 +27,17 @@ public class InputOutput {
         }
         return phoneList;
     }
-///235443
 
+    public static void writeInFile(String str) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("C:\\file"))) {
+            bufferedWriter.write(str);
+        } catch (FileNotFoundException e1) {
+            System.out.println("file not found!");
+            e1.printStackTrace();
+
+        } catch (IOException e) {
+            System.out.println("io exception!");
+            e.printStackTrace();
+        }
+    }
 }
