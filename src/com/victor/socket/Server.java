@@ -16,11 +16,11 @@ public class Server {
             System.out.println("Server started on port " + 6000);
 
             //ожидание ответа от клиента
-            System.out.print("Waiting for client");
+            System.out.println("Waiting for client...");
             Socket client = serverSocket.accept();
-            System.out.print("Connection complited");
+            System.out.println("Connection complited!");
 
-            List<String> str = InputOutput.readInfoFromFile("C:\\file");
+            List<String> str = InputOutput.readInfoFromFile("E:\\file.txt");
             synchronized (str) {
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(client.getOutputStream());
                 objectOutputStream.writeObject(str);
@@ -33,14 +33,21 @@ public class Server {
     }
 
     public static void main(String[] args) {
-        Thread thread = new Thread(new Runnable() {
+        Thread thread1 = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true) {
-                    Server.connection();
-                }
+                Client.go();
             }
         });
-        thread.start();
+        Thread thread2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+//                while (true) {
+                Server.connection();
+//                }
+            }
+        });
+        thread2.start();
+        thread1.start();
     }
 }

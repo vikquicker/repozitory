@@ -30,7 +30,7 @@ public class InputOutput {
     }
 
     public static void writeInFile(List<String> list) {
-        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("C:\\file"))) {
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("E:\\file.txt"))) {
             Iterator iterator = list.iterator();
             while (iterator.hasNext()) {
                 bufferedWriter.write(String.valueOf(iterator));
