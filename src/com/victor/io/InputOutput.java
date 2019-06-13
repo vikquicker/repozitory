@@ -2,6 +2,7 @@ package com.victor.io;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class InputOutput {
@@ -28,9 +29,12 @@ public class InputOutput {
         return phoneList;
     }
 
-    public static void writeInFile(String str) {
+    public static void writeInFile(List<String> list) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("C:\\file"))) {
-            bufferedWriter.write(str);
+            Iterator iterator = list.iterator();
+            while (iterator.hasNext()) {
+                bufferedWriter.write(String.valueOf(iterator));
+            }
         } catch (FileNotFoundException e1) {
             System.out.println("file not found!");
             e1.printStackTrace();
