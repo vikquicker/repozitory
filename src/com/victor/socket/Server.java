@@ -3,6 +3,7 @@ package com.victor.socket;
 import com.victor.io.InputOutput;
 
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -20,16 +21,26 @@ public class Server {
             System.out.print("Connection complited");
 
             List<String> str = InputOutput.readInfoFromFile("C:\\file");
-            PrintWriter printWriter = new PrintWriter(client.getOutputStream());
-            printWriter.println(str.get(0));
+            synchronized (str) {
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(client.getOutputStream());
+                objectOutputStream.writeObject(str);
 
-            printWriter.close();
+                objectOutputStream.close();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public static void main(String[] args) {
-        Server.connection();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    Server.connection();
+                }
+            }
+        });
+        thread.start();
     }
 }
