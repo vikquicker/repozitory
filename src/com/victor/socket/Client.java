@@ -1,22 +1,20 @@
 package com.victor.socket;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.Socket;
 
 public class Client {
     public static void go() {
         try {
             Socket socket = new Socket("localhost", 6000);
-            InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream());
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(objectInputStream);
 
-            String str = bufferedReader.readLine();
+            String str = bufferedInputStream.toString();
             System.out.println(str);
 
-            bufferedReader.close();
+            objectInputStream.close();
+            bufferedInputStream.close();
         } catch (IOException e) {
             System.out.println("Connection Failed");
         }
