@@ -16,6 +16,7 @@ public class InputOutput {
             //условие - если строка не равна null то цикл продолжить работать дальше
             while ((str = in.readLine()) != null) {
                 phoneList.add(str);
+
             }
 
         } catch (FileNotFoundException e1) {
