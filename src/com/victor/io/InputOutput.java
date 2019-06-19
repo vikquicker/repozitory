@@ -20,6 +20,7 @@ public class InputOutput {
             //условие - если строка не равна null то цикл продолжить работать дальше
             while ((str = in.readLine()) != null) {
                 phoneList.add(str);
+
             }
             String string = phoneList.toString();
             String[] array = str.split(" ");
