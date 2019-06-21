@@ -20,26 +20,14 @@ public class InputOutput {
             //условие - если строка не равна null то цикл продолжить работать дальше
             while ((str = in.readLine()) != null) {
                 phoneList.add(str);
-
             }
-            String string = phoneList.toString();
-            String[] array = str.split(" ");
-            for (int i = 0; i < array.length; i++) {
+            for (String list : phoneList) {
                 Person person = new Person();
-                if (array[i] == "[a-zA-Z]") {
-                    person.setName(array[i]);
-                    person.getName();
-                    hashSet.add(person);
-                } else if (array[i] == "[0-9]" || array[i].length() <= 4) {
-                    person.setId(Integer.parseInt(array[i]));
-                    person.getId();
-                    hashSet.add(person);
-                } else if (array[i] == "[0-9]" || array[i].length() > 4) {
-                    person.setPhone(Long.parseLong(array[i]));
-                    person.getPhone();
-                    hashSet.add(person);
-                }
-
+                String[] array = list.split(" ");
+                person.setId(Integer.parseInt(array[0]));
+                person.setName((array[1]));
+                person.setPhone(Integer.parseInt(array[2]));
+                hashSet.add(person);
             }
         } catch (FileNotFoundException e1) {
             System.out.println("file not found!");

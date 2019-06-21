@@ -1,12 +1,15 @@
 package com.victor.socket;
 
+import com.victor.Person;
 import com.victor.io.InputOutput;
+import com.victor.wrapper.Wrapper;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -16,7 +19,7 @@ public class Server implements Runnable {
     public Server() {
         try {
             serverSocket = new ServerSocket(6000);
-        } catch(Exception e){
+        } catch (Exception e) {
 
         }
     }
@@ -37,12 +40,13 @@ public class Server implements Runnable {
             new Thread(new Server()).start();
             System.out.println("Connection complited!");
 
-            List<String> str = InputOutput.readInfoFromFile("G:\\file.txt");
+            HashSet<Person> personSet = InputOutput.readInfoFromFile("E:\\file.txt");
 
-                ObjectOutputStream objectOutputStream = new ObjectOutputStream(client.getOutputStream());
-                objectOutputStream.writeObject(str);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(client.getOutputStream());
+            Wrapper wrapper = new Wrapper(personSet);
+            objectOutputStream.writeObject(wrapper);
 
-                objectOutputStream.close();
+            objectOutputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,28 +1,27 @@
 package com.victor.socket;
 
+import com.victor.Person;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class Client {
-    static List<String> list;
+    static HashSet<Person> list;
     public static void go() {
         try {
             Socket socket = new Socket("localhost", 6000);
             ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
             try {
-                list = (List<String>) objectInputStream.readObject();
-                System.out.println(list.get(0));
+                list = (HashSet<Person>) objectInputStream.readObject();
+
+                System.out.println(list.toString());
                 objectInputStream.close();
             } catch(Exception e){
-
+                e.printStackTrace();
             }
-
-
-
-           // objectInputStream.close();
-
         } catch (IOException e) {
             System.out.println("Connection Failed");
         }
@@ -33,4 +32,3 @@ public class Client {
         Client.go();
     }
 }
-//
