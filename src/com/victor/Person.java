@@ -1,9 +1,12 @@
 package com.victor;
 
-public class Person {
+import java.io.Serializable;
+import java.util.Objects;
+
+public class Person implements Serializable {
     private int id;
-	private String name;
-	private long phone;
+    private String name;
+    private long phone;
 
     public int getId() {
         return id;
@@ -27,5 +30,14 @@ public class Person {
 
     public void setPhone(long phone) {
         this.phone = phone;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null) return false;
+        if (!(o instanceof Person)) return false;
+        Person person = (Person) o;
+        return id == person.id && phone == person.phone && name == person.name;
     }
 }
