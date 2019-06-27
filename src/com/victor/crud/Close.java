@@ -5,7 +5,6 @@ import com.victor.Person;
 
 public class Close {
     public static void execute(){
-
-
+        System.exit(0);
     }
 }

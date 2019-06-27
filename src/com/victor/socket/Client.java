@@ -1,6 +1,7 @@
 package com.victor.socket;
 
 import com.victor.Person;
+import com.victor.crud.CommandContainer;
 import com.victor.wrapper.Wrapper;
 
 import java.io.*;
@@ -30,7 +31,7 @@ public class Client {
         } catch (IOException e) {
             System.out.println("Connection Failed");
         }
-
+        CommandContainer.waitCommand(list);
     }
 
     public static void main(String[] args) {
