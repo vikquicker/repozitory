@@ -5,6 +5,7 @@ import com.victor.io.InputOutput;
 import com.victor.wrapper.Wrapper;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
@@ -15,6 +16,7 @@ import java.util.Set;
 
 public class Server implements Runnable {
     static ServerSocket serverSocket;
+    static HashSet<Person> list;
 
     public Server() {
         try {
@@ -46,6 +48,18 @@ public class Server implements Runnable {
             Wrapper wrapper = new Wrapper(personSet);
             objectOutputStream.writeObject(wrapper);
 
+            ObjectInputStream objectInputStream = new ObjectInputStream(client.getInputStream());
+            try {
+                wrapper = (Wrapper) objectInputStream.readObject();
+            } catch (ClassNotFoundException e) {
+                System.out.println("server could not read clients answer...");
+                e.printStackTrace();
+            }
+            list = wrapper.getPersonContainer();
+            for (Person person : list) {
+                System.out.println(person.getId() + " " + person.getName() + " " + person.getPhone());
+            }
+            InputOutput.writeInFile(list);
             objectOutputStream.close();
         } catch (IOException e) {
             e.printStackTrace();

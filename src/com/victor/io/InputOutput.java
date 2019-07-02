@@ -40,11 +40,14 @@ public class InputOutput {
         return hashSet;
     }
 
-    public static void writeInFile(List<String> list) {
+    public static void writeInFile(HashSet<Person> list) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("E:\\file.txt"))) {
-            Iterator iterator = list.iterator();
+            bufferedWriter.write(String.valueOf(list));
+            Iterator<Person> iterator = list.iterator();
             while (iterator.hasNext()) {
-                bufferedWriter.write(String.valueOf(iterator));
+                Person person = iterator.next();
+                bufferedWriter.write(person.toString());
+                bufferedWriter.newLine();
             }
         } catch (FileNotFoundException e1) {
             System.out.println("file not found!");

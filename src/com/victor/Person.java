@@ -1,7 +1,6 @@
 package com.victor;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 public class Person implements Serializable {
     private long id;
@@ -30,6 +29,11 @@ public class Person implements Serializable {
 
     public void setPhone(long phone) {
         this.phone = phone;
+    }
+
+    @Override
+    public String toString() {
+        return id + " " + name + " " + phone;
     }
 
     @Override
