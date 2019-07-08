@@ -6,6 +6,7 @@ public class Person implements Serializable {
     private long id;
     private String name;
     private long phone;
+    Status statusOfPerson;
 
     public long getId() {
         return id;
