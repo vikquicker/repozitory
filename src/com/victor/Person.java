@@ -6,7 +6,7 @@ public class Person implements Serializable {
     private long id;
     private String name;
     private long phone;
-    Status statusOfPerson;
+    private Status statusOfPerson;
 
     public long getId() {
         return id;
@@ -30,6 +30,14 @@ public class Person implements Serializable {
 
     public void setPhone(long phone) {
         this.phone = phone;
+    }
+
+    public Status getStatusOfPerson(){
+        return this.statusOfPerson;
+    }
+
+    public void  setStatusOfPerson(Status status){
+        this.statusOfPerson = status;
     }
 
     @Override

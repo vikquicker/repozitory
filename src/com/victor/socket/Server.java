@@ -32,6 +32,7 @@ public class Server implements Runnable {
     }
 
     public static void connection() {
+        Wrapper wrapper = new Wrapper();
         //Создается новое подключение с портом 6000
         try {
             System.out.println("Server started on port " + 6000);
@@ -45,10 +46,13 @@ public class Server implements Runnable {
             HashSet<Person> personSet = InputOutput.readInfoFromFile("E:\\file.txt");
 
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(client.getOutputStream());
-            Wrapper wrapper = new Wrapper(personSet);
+            ObjectInputStream objectInputStream = new ObjectInputStream(client.getInputStream());
+
+            ///
+            wrapper.setPersonContainer(personSet);
             objectOutputStream.writeObject(wrapper);
 
-            ObjectInputStream objectInputStream = new ObjectInputStream(client.getInputStream());
+
             try {
                 wrapper = (Wrapper) objectInputStream.readObject();
             } catch (ClassNotFoundException e) {
