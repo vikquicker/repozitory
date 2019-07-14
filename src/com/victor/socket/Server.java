@@ -51,23 +51,23 @@ public class Server implements Runnable {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(client.getOutputStream());
             ObjectInputStream objectInputStream = new ObjectInputStream(client.getInputStream());
 
-            ///
-            wrapper.setPersonContainer(personSet);
-            objectOutputStream.writeObject(wrapper);
-            try {
-                wrapper = (Wrapper) objectInputStream.readObject();
-            } catch (ClassNotFoundException e) {
-                System.out.println("server could not read clients answer...");
-                e.printStackTrace();
+            while (true) {
+                wrapper.setPersonContainer(personSet);
+                objectOutputStream.writeObject(wrapper);
+                try {
+                    wrapper = (Wrapper) objectInputStream.readObject();
+                } catch (ClassNotFoundException e) {
+                    System.out.println("server could not read clients answer...");
+                    e.printStackTrace();
+                }
+                clientList = wrapper.getPersonContainer();
+                for (Person person : clientList) {
+                    System.out.println(person.getId() + " " + person.getName() + " " + person.getPhone());
+                }
+                mergeList(clientList);
+                InputOutput.writeInFile(list);
+                objectOutputStream.close();
             }
-            clientList = wrapper.getPersonContainer();
-            for (Person person : clientList) {
-                System.out.println(person.getId() + " " + person.getName() + " " + person.getPhone());
-            }
-            mergeList(clientList);
-            InputOutput.writeInFile(list);
-            ///
-            objectOutputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -75,15 +75,15 @@ public class Server implements Runnable {
 
     private void mergeList(HashSet<Person> clientSet) {
         for (Person element : clientSet) {
-            if (element.getStatusOfPerson().equals(Status.ADDED)){
+            if (element.getStatusOfPerson().equals(Status.ADDED)) {
                 element.setStatusOfPerson(null);
                 list.add(element);
-            }else if(element.getStatusOfPerson().equals(Status.DELETED)){
-                Iterator<Person> iterator =  clientSet.iterator();
+            } else if (element.getStatusOfPerson().equals(Status.DELETED)) {
+                Iterator<Person> iterator = clientSet.iterator();
                 Person person;
-                while(iterator.hasNext()){
+                while (iterator.hasNext()) {
                     person = iterator.next();
-                    if (person.getId() == element.getId()){
+                    if (person.getId() == element.getId()) {
                         list.remove(person);
                     }
                 }
